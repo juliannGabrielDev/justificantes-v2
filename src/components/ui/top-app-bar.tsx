@@ -1,11 +1,21 @@
+import { Button } from "@/components/common/button";
+import { StyledText } from "@/components/common/styled-text";
+import { useHaptics } from "@/hooks/use-haptics";
+import {
+	radius,
+	spacing,
+	useStyles,
+	useThemeColors,
+	type ThemeColors,
+} from "@/use-theme";
 import { usePathname, useRouter, type Href } from "expo-router";
 import { useState } from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
 	ArrowUturnLeftIcon,
+	Bars2Icon,
 	BellIcon,
-	EllipsisHorizontalIcon,
 	PlusIcon,
 	ScaleIcon,
 	UserCircleIcon,
@@ -17,19 +27,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Button } from "@/components/common/button";
-import { StyledText } from "@/components/common/styled-text";
-import { useHaptics } from "@/hooks/use-haptics";
-import {
-	radius,
-	spacing,
-	useStyles,
-	useThemeColors,
-	type ThemeColors,
-} from "@/use-theme";
-
 const TAB_SCREENS = ["/", "/upload", "/history"];
-const ICON_BUTTON_SIZE = 48;
+const ICON_BUTTON_SIZE = 52;
 const ICON_SIZE = 28;
 
 export interface TopAppBarProps {
@@ -83,16 +82,12 @@ function createStyles(c: ThemeColors) {
 			overflow: "hidden",
 			borderRadius: radius.full,
 			backgroundColor: c.surfaceContainer,
-			borderWidth: 2,
-			borderColor: c.outline,
 		},
 		menuPanel: {
 			gap: spacing.lg,
 			borderRadius: radius["3xl"],
 			padding: spacing.lg,
 			backgroundColor: c.surfaceContainer,
-			borderWidth: 2,
-			borderColor: c.outline,
 		},
 		menuItem: {
 			flexDirection: "row",
@@ -147,9 +142,7 @@ export default function TopAppBar({
 							style={({ pressed }) => [
 								styles.iconButton,
 								pressed && styles.iconButtonPressed,
-								{ borderWidth: 2, borderColor: colors.outline },
 							]}
-							className="shadow-brutalist-sm"
 						>
 							<ArrowUturnLeftIcon size={ICON_SIZE} color={colors.onSurface} />
 						</Pressable>
@@ -163,7 +156,6 @@ export default function TopAppBar({
 					<Animated.View
 						layout={LinearTransition.duration(200)}
 						style={styles.actionsCluster}
-						className="shadow-brutalist-sm"
 					>
 						{showCreate && (
 							<Animated.View
@@ -218,10 +210,7 @@ export default function TopAppBar({
 									pressed && styles.iconButtonPressed,
 								]}
 							>
-								<EllipsisHorizontalIcon
-									size={ICON_SIZE}
-									color={colors.onSurface}
-								/>
+								<Bars2Icon size={ICON_SIZE} color={colors.onSurface} />
 							</Pressable>
 						</Animated.View>
 					</Animated.View>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -6,10 +7,9 @@ import {
 	type AbsenceExcuseCardProps,
 } from "@/components/absence-excuse/absence-excuse-card";
 import { Button } from "@/components/common/button";
-import { StatCard } from "@/components/common/stat-card";
 import { StyledText } from "@/components/common/styled-text";
 import { createScreenStyles } from "@/styles/screen.styles";
-import { spacing, useStyles } from "@/use-theme";
+import { radius, spacing, useStyles } from "@/use-theme";
 
 const RECENT_EXCUSES: AbsenceExcuseCardProps[] = [
 	{
@@ -44,6 +44,20 @@ const RECENT_EXCUSES: AbsenceExcuseCardProps[] = [
 	},
 ];
 
+const GREETINGS = [
+	"¡Hola!",
+	"Hello!",
+	"Bonjour!",
+	"Ciao!",
+	"Hallo!",
+	"Olá!",
+	"Konnichiwa!",
+	"Namaste!",
+	"Aloha!",
+	"Hej!",
+	"Salut!",
+];
+
 const createStyles = () =>
 	StyleSheet.create({
 		header: {
@@ -51,11 +65,9 @@ const createStyles = () =>
 		},
 		statsGrid: {
 			alignSelf: "stretch",
-			gap: spacing.md,
 		},
 		statsRow: {
 			flexDirection: "row",
-			gap: spacing.md,
 		},
 	});
 
@@ -63,6 +75,9 @@ const Index = () => {
 	const insets = useSafeAreaInsets();
 	const styles = useStyles(createStyles);
 	const screenStyles = useStyles(() => createScreenStyles(insets));
+	const [greeting] = useState(
+		() => GREETINGS[Math.floor(Math.random() * GREETINGS.length)],
+	);
 
 	return (
 		<ScrollView
@@ -71,15 +86,15 @@ const Index = () => {
 		>
 			<View style={styles.header}>
 				<StyledText variant="display" size="lg" family="display" weight="black">
-					¡Hola!
+					{greeting}
 				</StyledText>
 				<StyledText
 					variant="body"
-					size="sm"
+					size="md"
 					weight="bold"
 					color="onSurfaceVariant"
 				>
-					Gestiona tus justificantes con facilidad.
+					Sistema de Justificantes CUCSur
 				</StyledText>
 			</View>
 
@@ -88,32 +103,120 @@ const Index = () => {
 			</StyledText>
 			<View style={styles.statsGrid}>
 				<View style={styles.statsRow}>
-					<StatCard
-						variant="rejected"
-						value={1}
-						label="rechazados."
-						style={{ flex: 1 }}
-					/>
-					<StatCard
-						variant="pending"
-						value={6}
-						label="pendientes."
-						style={{ flex: 1 }}
-					/>
+					<View
+						style={{
+							flex: 1,
+							backgroundColor: "#D9F99D",
+							padding: spacing.lg,
+							height: 120,
+							borderTopLeftRadius: radius["4xl"],
+							borderBottomLeftRadius: radius["4xl"],
+						}}
+					>
+						<StyledText
+							variant="display"
+							size="md"
+							family="display"
+							weight="black"
+							color="#365314"
+						>
+							5
+						</StyledText>
+						<StyledText
+							variant="body"
+							size="md"
+							weight="boldItalic"
+							color="#365314"
+						>
+							aprobados
+						</StyledText>
+					</View>
+					<View
+						style={{
+							flex: 1,
+							backgroundColor: "#A5F3FC",
+							padding: spacing.lg,
+							height: 120,
+							borderTopLeftRadius: radius["4xl"],
+							borderTopRightRadius: radius["4xl"],
+						}}
+					>
+						<StyledText
+							variant="display"
+							size="md"
+							family="display"
+							weight="black"
+							color="#164E63"
+						>
+							5
+						</StyledText>
+						<StyledText
+							variant="body"
+							size="md"
+							weight="boldItalic"
+							color="#164E63"
+						>
+							totales
+						</StyledText>
+					</View>
 				</View>
 				<View style={styles.statsRow}>
-					<StatCard
-						variant="approved"
-						value={3}
-						label="aprobados."
-						style={{ flex: 1 }}
-					/>
-					<StatCard
-						variant="total"
-						value={10}
-						label="en total."
-						style={{ flex: 1 }}
-					/>
+					<View
+						style={{
+							flex: 1,
+							backgroundColor: "#FEF08A",
+							padding: spacing.lg,
+							height: 120,
+							borderBottomLeftRadius: radius["4xl"],
+							borderBottomRightRadius: radius["4xl"],
+						}}
+					>
+						<StyledText
+							variant="display"
+							size="md"
+							family="display"
+							weight="black"
+							color="#713F12"
+						>
+							2
+						</StyledText>
+						<StyledText
+							variant="body"
+							size="md"
+							weight="boldItalic"
+							color="#713F12"
+						>
+							pendientes
+						</StyledText>
+					</View>
+					<View
+						style={{
+							flex: 1,
+							backgroundColor: "#F5D0FE",
+							padding: spacing.lg,
+							height: 120,
+							borderTopRightRadius: radius["4xl"],
+							borderBottomRightRadius: radius["4xl"],
+						}}
+					>
+						<StyledText
+							variant="display"
+							size="md"
+							family="display"
+							weight="black"
+							color="#831843"
+						>
+							1
+						</StyledText>
+						<StyledText
+							variant="body"
+							size="md"
+							weight="boldItalic"
+							color="#831843"
+						>
+							rechazados
+						</StyledText>
+					</View>
 				</View>
 			</View>
 
